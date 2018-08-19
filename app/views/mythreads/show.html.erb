@@ -1,2 +1,24 @@
-<h1>Mythreads#show</h1>
-<p>Find me in app/views/mythreads/show.html.erb</p>
+<h1>スレッド(<%= @mythread.title %>)の詳細</h1>
+<p><%= @mythread.comment %></p>
+
+<h1>コメント一覧</h1>
+<ul>
+  <% @comments.each do |comment| %>
+  <li>
+    <%= comment.comment %>
+    <%= link_to "編集", edit_comment_path(comment) %>
+    <%= link_to "削除", comment_path(comment), method: :delete %>
+  </li>
+  <% end %>
+</ul>
+
+<h1>コメント作成</h1>
+<%= form_for(@comment) do |f| %>
+  <%= f.label :comment, "コメント" %>
+  <%= f.text_area :comment %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :mythread_id, value: @mythread.id %>
+  <%= f.submit "作成" %>
+<% end %>
+
+<%= link_to "戻る", mythreads_path %>

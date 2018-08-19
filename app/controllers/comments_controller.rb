@@ -2,9 +2,10 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: [:edit, :update, :destroy]
 
   def create
-    @comment.new(comment_params)
+    @mythread = Mythread.find(params[:comment][:mythread_id])
+    @comment = @mythread.comments.build(comment_params)
     @comment.save
-    redirect_to mythread_path
+    redirect_to @mythread
   end
 
   def edit
@@ -12,12 +13,12 @@ class CommentsController < ApplicationController
 
   def update
     @comment.update_attributes(comment_params)
-    redirect_to mythread_path
+    redirect_to "/mythreads/#{@comment.mythread_id}"
   end
 
   def destroy
     @comment.destroy
-    redirect_to mythread_path
+    redirect_to "/mythreads/#{@comment.mythread_id}"
   end
 
   private
@@ -27,6 +28,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:comment)
+      params.require(:comment).permit(:user_id, :mythread_id, :comment)
     end
 end

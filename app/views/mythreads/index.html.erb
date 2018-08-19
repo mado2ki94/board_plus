@@ -1,2 +1,12 @@
-<h1>Mythreads#index</h1>
-<p>Find me in app/views/mythreads/index.html.erb</p>
+<h1>スレッド一覧</h1>
+<ul>
+  <% @mythreads.each do |mythread| %>
+  <li>
+    <%= link_to mythread.title, mythread_path(mythread) %>
+    <%= link_to "編集", edit_mythread_path(mythread) %>
+    <%= link_to "削除", mythread_path(mythread), method: :delete %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "スレッドを作成する", new_mythread_path %>

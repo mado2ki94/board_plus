@@ -1,2 +1,8 @@
-<h1>Mythreads#new</h1>
-<p>Find me in app/views/mythreads/new.html.erb</p>
+<h1>スレッド作成</h1>
+<%= form_for(@mythread) do |f| %>
+  <%= f.label :title, "タイトル" %>
+  <%= f.text_field :title %>
+  <%= f.label :comment, "コメント" %>
+  <%= f.text_area :comment %>
+  <%= f.submit "作成" %>
+<% end %>
